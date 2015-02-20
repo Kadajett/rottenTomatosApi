@@ -1,0 +1,11 @@
+<input type="text" name="movieSearch" id="movieSearch" class="form-control" data-ng-model='moviesSearch'>
+<button type="button" class="btn btn-default" data-ng-click="searchButton()">Search</button>
+  <md-card data-ng-repeat='movie in movies'>
+ <img  data-ng-src='{{movie.posters.profile}}' class="md-card-image">
+ <h2>{{movie.title}} <span class="pull-right" data-ng-class='{"text-success": movie.ratings.audience_score >50, "text-danger": movie.ratings.audience_score <50}'> %{{movie.ratings.audience_score}} </span>
+
+ </h2>
+ <p>
+   {{movie.synopsis}}
+ </p>
+</md-card> 
