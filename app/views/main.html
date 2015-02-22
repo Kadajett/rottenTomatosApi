@@ -1,11 +1,17 @@
-<input type="text" name="movieSearch" id="movieSearch" class="form-control" data-ng-model='moviesSearch'>
-<button type="button" class="btn btn-default" data-ng-click="searchButton()">Search</button>
-  <md-card data-ng-repeat='movie in movies'>
- <img  data-ng-src='{{movie.posters.profile}}' class="md-card-image">
- <h2>{{movie.title}} <span class="pull-right" data-ng-class='{"text-success": movie.ratings.audience_score >50, "text-danger": movie.ratings.audience_score <50}'> %{{movie.ratings.audience_score}} </span>
+<div  class="row">
+	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-repeat='movie in movies'>
+		<md-card data-ng-click="clickMovie(movie)"class="cardContainer">
+			<img   data-ng-src='{{movie.posters.newPoster}}' class="md-card-image posterImg">
+			<h2>{{movie.title| limitTo:20}}... <span class="pull-right" data-ng-class='{"text-success": movie.ratings.audience_score >50, "text-danger": movie.ratings.audience_score <50}'> %{{movie.ratings.audience_score}} </span>
 
- </h2>
- <p>
-   {{movie.synopsis}}
- </p>
-</md-card> 
+			</h2>
+		<p>
+		 		{{movie.synopsis| limitTo:50}}...
+		 		
+	 	</p>
+		</md-card> 
+	</div>
+</div>
+<!-- <input type="text" name="movieSearch" id="movieSearch" class="form-control" data-ng-model='moviesSearch'> -->
+<button type="button" class="btn btn-default" data-ng-click="searchButton()">Search</button>
+  

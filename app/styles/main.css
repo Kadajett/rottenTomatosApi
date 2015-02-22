@@ -58,12 +58,22 @@ body {
 .marketing p + h4 {
   margin-top: 28px;
 }
-
+.posterImg{
+  height: 500px;
+}
+.cardContainer{
+  height: 650px;
+}
+.imageDetail {
+height: auto;
+width: 100%;
+}
+.modal-content{
+  overflow: hidden;
+}
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+
 
   /* Remove the padding we set earlier */
   .header,

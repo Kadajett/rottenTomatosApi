@@ -17,7 +17,11 @@ angular.module('rottenTomatoesTestApp')
     	var defer = $q.defer();
     	$http.get('http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=' + movies.key )
     	.success(function(res){
-    		defer.resolve(res);
+                    movies.getPosters(res.movies)
+                    .then(function(){
+                    	defer.resolve(res);
+                    })
+    		
 
     	}).error(function(error, status){
     		defer.reject('failed')
@@ -33,7 +37,10 @@ angular.module('rottenTomatoesTestApp')
     	var defer = $q.defer();
     	$http.get('http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=' + movies.key + '&q=' + search)
     	.success(function(res){
-    		defer.resolve(res);
+    		movies.getPosters(res.movies)
+                    .then(function(){
+                    	defer.resolve(res);
+                    })
 
     	}).error(function(error, status){
     		defer.reject('failed')
@@ -43,6 +50,30 @@ angular.module('rottenTomatoesTestApp')
     	return defer.promise;
 
 
+    }
+    movies.getPosters = function getPosters(movieList){
+        var defer = $q.defer();
+        angular.forEach(movieList, function(movie, index){
+            $http.get('http://www.omdbapi.com/?t=' +movie.title)
+            .success(function(pic){
+                if(pic.Poster!= "N/A"){
+                    movie.posters.newPoster = pic.Poster;
+                }else{
+                    movie.posters.newPoster = movie.posters.original;
+
+                }
+
+                 }).error(function(error, smth){
+                movie.posters.newPoster = movie.posters.original;
+            })
+            if(index>=movieList.length-1){
+                defer.resolve();
+            }
+
+        })
+
+
+        return defer.promise;
     }
 
      return movies;
