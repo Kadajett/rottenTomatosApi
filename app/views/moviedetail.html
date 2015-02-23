@@ -11,6 +11,27 @@
 
 		</div>
 		<hr />
+		<div class="row movieDetailSynopsis">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<strong>Synopsis</strong><p>{{movie.synopsis}}</p>
+			</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<strong>Audiance Score</strong> 
+				<br /> 
+				<rating data-ng-model="movie.ratings.audianceStarRating" readonly="true"></rating>
+				<!-- <p data-ng-class='{"text-success": movie.ratings.audience_score >50, "text-danger": movie.ratings.audience_score <50}'>{{movie.ratings.audience_score}} %</p> -->
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<strong>Critics score</strong>
+				<br /> 
+				<rating data-ng-model="movie.ratings.criticesStarRating" readonly="true"></rating>
+			</div>
+		</div>
+
 	</div>
+
 </div>
 </div>

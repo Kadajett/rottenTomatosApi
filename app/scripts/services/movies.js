@@ -59,6 +59,7 @@ angular.module('rottenTomatoesTestApp')
     movies.getPosters = function getPosters(movieList){
         var defer = $q.defer();
         angular.forEach(movieList, function(movie, index){
+            movies.starRating(movie);
             $http.get('http://www.omdbapi.com/?t=' +movie.title)
             .success(function(pic){
                 if(pic.Poster!= "N/A"){
@@ -96,6 +97,12 @@ angular.module('rottenTomatoesTestApp')
 
 
         return defer.promise;
+    }
+    movies.starRating = function starRating(movie){
+        movie.ratings.audianceStarRating = movie.ratings.audience_score/20;
+        movie.ratings.criticesStarRating =movie.ratings.critics_score/20;
+
+
     }
 
      return movies;
