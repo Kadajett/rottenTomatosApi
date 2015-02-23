@@ -12,6 +12,7 @@ angular.module('rottenTomatoesTestApp')
   	var init = function init(){
   		$scope.movies = null;
   	 	$scope.moviesSearch ="";
+      $scope.movieType="";
 
 
   		movies.getMovies()

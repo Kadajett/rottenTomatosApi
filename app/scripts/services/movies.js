@@ -17,10 +17,14 @@ angular.module('rottenTomatoesTestApp')
     	var defer = $q.defer();
     	$http.get('http://api.rottentomatoes.com/api/public/v1.0/lists/movies/in_theaters.json?apikey=' + movies.key )
     	.success(function(res){
-                    movies.getPosters(res.movies)
-                    .then(function(){
+                    $q.all([
+                        movies.getPosters(res.movies),
+                        movies.getDetails(res.movies)
+
+                        ]).then(function(){
                     	defer.resolve(res);
                     })
+                    
     		
 
     	}).error(function(error, status){
@@ -41,6 +45,7 @@ angular.module('rottenTomatoesTestApp')
                     .then(function(){
                     	defer.resolve(res);
                     })
+                    movies.getDetails(res.movies)
 
     	}).error(function(error, status){
     		defer.reject('failed')
@@ -65,6 +70,23 @@ angular.module('rottenTomatoesTestApp')
 
                  }).error(function(error, smth){
                 movie.posters.newPoster = movie.posters.original;
+            })
+            if(index>=movieList.length-1){
+                defer.resolve();
+            }
+
+        })
+
+
+        return defer.promise;
+    }
+    movies.getDetails = function getDetails(movieList){
+        var defer = $q.defer();
+        angular.forEach(movieList, function(movie, index){
+            $http.get('http://api.rottentomatoes.com/api/public/v1.0/movies/'+movie.id+'?apikey=' + movies.key)
+            .success(function(info){
+                movie.info = info;
+                
             })
             if(index>=movieList.length-1){
                 defer.resolve();

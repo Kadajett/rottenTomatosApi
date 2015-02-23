@@ -1,5 +1,33 @@
+<input type="text" name="movieSearch" id="movieSearch" class="form-control" data-ng-model='moviesSearch'>
+<form><div class="radio">
+	<label>
+		<input type="radio" name="" id="input" value="action" data-ng-model="movieType" >
+		Action
+	</label>
+	<label>
+		<input type="radio" name="" id="input" value="comedy" data-ng-model="movieType" >
+		Comedy
+	</label>
+	<label>
+		<input type="radio" name="" id="input" value="Drama" data-ng-model="movieType">
+		Drama
+	</label>
+	<label>
+		<input type="radio" name="" id="input" value="Romance" data-ng-model="movieType">
+		Romance
+	</label>
+	<label>
+		<input type="radio" name="" id="input" value="" data-ng-model="movieType">
+		N/A
+	</label>
+
+</div>
+</form>
+<button type="button" class="btn btn-default" data-ng-click="searchButton()">Search</button>
+{{movieType}}
+
 <div  class="row">
-	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-repeat='movie in movies'>
+	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" data-ng-repeat='movie in movies | filter:movieType'>
 		<md-card data-ng-click="clickMovie(movie)"class="cardContainer">
 			<img   data-ng-src='{{movie.posters.newPoster}}' class="md-card-image posterImg">
 			<h2>{{movie.title| limitTo:20}}... <span class="pull-right" data-ng-class='{"text-success": movie.ratings.audience_score >50, "text-danger": movie.ratings.audience_score <50}'> %{{movie.ratings.audience_score}} </span>
@@ -12,6 +40,5 @@
 		</md-card> 
 	</div>
 </div>
-<!-- <input type="text" name="movieSearch" id="movieSearch" class="form-control" data-ng-model='moviesSearch'> -->
-<button type="button" class="btn btn-default" data-ng-click="searchButton()">Search</button>
+
   
